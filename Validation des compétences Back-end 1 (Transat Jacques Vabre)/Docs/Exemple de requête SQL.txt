@@ -1,0 +1,22 @@
+
+Sélectionner le skipper d'un bateau
+------------------------------------------------------
+SELECT nomSkipper, photo 
+FROM skipper
+WHERE idBateau = 1
+
+ou avec + d'info
+
+SELECT nomSkipper, skipper.photo, classementFinal, TIME_TO_SEC(tempsCourse) as tempsCourse
+FROM skipper, bateau
+WHERE skipper.idBateau = bateau.idBateau
+AND skipper.idBateau = 1
+
+
+Requête pour le détail d'un bateau :
+SELECT bateau.idBateau, nomBateau, dateArrivee, tempsCourse, skipper.nomSkipper, bateau.photo as photobateau, skipper.photo as photoskipper, classebateau.nomClasse, classementFinal, TIME_TO_SEC(tempsCourse) as tempsCourse
+FROM bateau, skipper, classebateau
+WHERE skipper.idBateau = bateau.idBateau
+AND classebateau.idClasse = bateau.idClasse
+AND bateau.idBateau = 1
+

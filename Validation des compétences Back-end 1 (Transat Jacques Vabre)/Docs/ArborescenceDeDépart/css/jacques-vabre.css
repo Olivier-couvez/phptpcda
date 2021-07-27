@@ -1,0 +1,625 @@
+/* Elément racine du document : la balise <html> */
+html {
+  /* --main-blue-color: rgb(0, 165, 171);
+  --main-pink-color: rgb(226, 1, 107); */
+  --main-text-color: #000;
+  --main-a-color: #3b75b4;
+  --h1-text-color: #3b75b4;
+  --h2-text-color: #ff8700;
+  --h3-text-color: var(--h2-text-color);
+  --header-bg-color: var(--h2-text-color);
+  --header-logo-text-color: #fff;
+  --header-text-color: #fff;
+  --footer-bg-color: var(--h1-text-color);
+  --footer-text-color: white;
+
+  --nav-bg-color: var(--header-bg-color);
+  --nav-bg-active-color: var(--nav-bg-color);
+  --nav-text-color: #3e1d18;
+  --nav-text-hover-color: var(--nav-text-color);
+  --nav-text-active-color: var(--nav-text-color);
+
+  --nav-toggle-bg-color: var(--header-bg-color);
+  --nav-toggle-bg-active-color: var(--nav-toggle-bg-color);
+  --nav-toggle-text-color: white;
+  --nav-toggle-text-hover-color: var(--nav-toggle-text-color);
+  --nav-toggle-text-active-color: var(--nav-toggle-text-color);
+
+  --gallery-item-border-color: #dedede;
+}
+
+/****************************************************
+**     Styles globaux et pour largeur < 768px                        **
+****************************************************/
+
+/*********** Fixer le style global ******************/
+html {
+  font-size: 0.625rem;
+}
+
+body {
+  font-size: 1.6rem;
+  color: var(--main-text-color);
+  font-family: "Segoe UI", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/*********** Grille globale ******************/
+#page-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  /* pour 100vh sur chrome mobile (cf code JS dans index.html) */
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/*********** Header ******************/
+#header-wrapper {
+
+  /*center le header  dans le viewport horizontal*/
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 0rem;
+  padding-right: 0rem;
+  align-items: center;
+  background-color: var(--header-bg-color);
+  border-bottom: var(--header-text-color) solid 1px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  left: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+#main-header {
+  background-color: var(--header-bg-color);
+  /* pour placer le menu en absolu */
+  position: relative;
+  /* fixer la largeur maxi du contenu (1170p + 30px de marge = 1200px) */
+  width: 100%;
+  max-width: 120rem;
+}
+
+/*********** Logo ******************/
+.header-logo {
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  height: fit-content;
+  color: var(--header-logo-text-color);
+  text-decoration: none;
+  padding-bottom: 6rem;
+  padding-left: 14rem;
+  padding-top: 0.4rem;
+  /* font-weight: bold; */
+  /* placement du logo */
+  margin-top: 1.5rem;
+  margin-left: 1.5rem;
+  margin-right: 0.5rem;
+  background: url("img/logo-tjv-2019.svg");
+  background-size: 11rem 6.92rem;
+  background-repeat: no-repeat;
+  background-position: top left;
+  font-weight: 700;
+  letter-spacing: .01rem;
+  text-transform: uppercase;
+}
+
+/*********** NAV Toggle button ******************/
+/* Bouton "Hamburger" HTML/CSS/JS https://www.phonandroid.com */
+#main-header {
+  position: relative;
+}
+
+.nav-opener {
+  box-sizing: border-box;
+  /* background: #454545; */
+  width: 50px;
+  height: 50px;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0px;
+  /*-50px;*/
+  cursor: pointer;
+  z-index: 2;
+}
+
+.nav-opener span {
+  box-sizing: border-box;
+  top: 50%;
+  margin-top: -1px;
+  transform: translate(-50%);
+}
+
+.nav-opener span,
+.nav-opener::after,
+.nav-opener::before {
+  box-sizing: border-box;
+  content: "";
+  position: absolute;
+  background: #fff;
+  height: 2px;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all .25s cubic-bezier(.25, .1, .25, 1);
+}
+
+#nav-opener:checked+.nav-opener span {
+  width: 0;
+  opacity: 0;
+}
+
+#nav-opener:checked+.nav-opener::before {
+  transform: translateX(-50%) rotate(45deg);
+  top: 50%;
+}
+
+.nav-opener::before {
+  top: 17px;
+}
+
+#nav-opener:checked+.nav-opener::after {
+  transform: translateX(-50%) rotate(-45deg);
+  top: 50%;
+}
+
+.nav-opener::after {
+  bottom: 17px;
+}
+
+#nav-opener,
+.nav-opener-text {
+  display: none;
+}
+
+#nav-opener:checked+label+nav {
+  visibility: visible;
+  opacity: 1;
+  z-index: 1;
+  top: 100%;
+  transform: translateY(0%);
+  transition: transform .3s ease-in-out 0s, opacity .3s ease-in-out 0s, visibility 0s linear 0s, z-index 0s linear .3s;
+}
+
+#nav-opener+label+nav {
+  opacity: 0;
+  visibility: hidden;
+  top: -300vh;
+  transform: translateY(-2em);
+  z-index: -1;
+  transition: top 0s ease-in-out .6s, transform .3s ease-in-out 0s, opacity .3s ease-in-out 0s, visibility 0s linear .3s, z-index 0s linear .01s;
+
+}
+
+/*********** Menu principal <768px ******************/
+#main-nav-ul {
+  display: none;
+  flex-flow: column nowrap;
+  align-items: center;
+  list-style-type: none;
+  /* pour ne pas pousser le conteneu et apparaitre au dessus */
+  position: absolute;
+  z-index: 99;
+  background-color: var(--nav-toggle-bg-color);
+  /*position du menu toggle aligné sur left/right de .main-header + 1.5rem de padding de .header-wrapper */
+  right: 0rem;
+  left: 0rem;
+
+  /* clear: both; */
+  margin: 0;
+  padding: 1.5rem;
+  /* le bas du menu toogle ne dépasse pas 70% du vh */
+  box-sizing: border-box;
+  max-height: calc(70vh - 5rem);
+  /* scroll sur le menu toogle s'il n'est pas assez grand pour afficher tous les items*/
+  overflow-y: auto;
+}
+
+#main-nav-ul li a {
+  color: var(--nav-toggle-text-color);
+  text-decoration: none;
+  display: block;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 500;
+}
+
+#main-nav-ul li a:hover {
+  color: var(--nav-toggle-text-hover-color);
+  /* opacity: 1; */
+  background-color: var(--nav-toggle-bg-active-color);
+  font-weight: bold;
+}
+
+#main-nav-ul li.active a {
+  color: var(--nav-toggle-text-active-color);
+  background-color: var(--nav-toggle-bg-active-color);
+  font-weight: bold;
+}
+
+
+/*********** Article principal ******************/
+#article-wrapper {
+  /*center l'article dans le viewport horizontal*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  padding-top: 10rem;
+}
+#article-wrapper>*:first-child {
+  /* pour le debug de codeigniter */
+  width: 100%;
+  max-width: 117rem;
+}
+
+.main-article {
+  /* fixer la largeur maxi du contenu (1170p + 30px de marge = 1200px) */
+  width: 100%;
+  max-width: 117rem;
+  /* Texte de l'article */
+  text-align: justify;
+  color: var(--main-text-color);
+}
+
+.main-article img {
+  width: 100%;
+  max-width: 55rem;
+  display: block;
+  margin: auto;
+  /* border: 1px solid var(--main-text-color); */
+  border: 1px solid var(--header-bg-color);
+}
+
+.main-article a {
+  text-decoration: none;
+  color: var(--main-a-color);
+  /* margin-top: 48px; */
+}
+
+.main-article p {
+  font-weight: normal;
+}
+
+/* Pour largeur < 768px */
+.main-article h1 {
+  font-size: 2.55rem;
+  color: var(--h1-text-color);
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  clear: both;
+}
+
+.main-article p:first-of-type strong {
+  font-size: 1.7rem;
+  color: var(--nav-text-color);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.main-article h2 {
+  font-size: 1.87rem;
+  color: var(--h2-text-color);
+  font-weight: 600;
+  text-align: start;
+  clear: both;
+}
+
+.main-article h3 {
+  font-size: 1.7rem;
+  font-style: italic;
+  color: var(--h3-text-color);
+  font-weight: 500;
+  text-align: start;
+  clear: both;
+}
+
+.main-article p {
+  font-size: 1.6rem;
+  color: var(--main-text-color);
+}
+
+/*********** liste items ******************/
+.art-list-items {
+  list-style-type: none;
+  /* margin: 0; */
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.art-list-items li{
+  padding: 0.5rem 0;
+}
+
+/*********** pagination links ******************/
+.pagination {
+  list-style-type: none;
+  /* margin: 0; */
+  padding-left: 0rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.pagination li a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: var(--main-text-color);
+  border-radius: 1rem;
+}
+
+.pagination .active a {
+  color: var(--nav-bg-color);
+  background-color: var(--nav-text-hover-color);
+}
+
+.pagination .pager-next-previous {
+  border: var(--nav-text-color) solid 0.1rem;
+}
+
+/*********** gallery-items ******************/
+.gallery-items {
+  /* font-size: 1.6rem; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  grid-gap: 2rem;
+  clear: both;
+}
+
+.gallery-item-card {
+  border: var(--gallery-item-border-color) solid 1px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
+  padding: 1.6rem;
+}
+
+.gallery-item-card img {
+  border: none;
+  max-width: 50%;
+  aspect-ratio: auto 128 / 128;
+  display: block;
+  margin: auto;
+}
+
+.gallery-item-card h3 {
+  font-size: 1.4rem;
+  text-align: start;
+}
+
+.gallery-item-card p {
+  font-size: 1.2rem;
+  text-align: start;
+}
+
+/*********** Footer ******************/
+
+#footer-wrapper {
+  /*center le footer dans le viewport horizontal*/
+  display: flex;
+  justify-content: center;
+  padding: 0rem;
+  background-color: var(--footer-bg-color);
+}
+
+#main-footer {
+  background-color: var(--footer-bg-color);
+  /* fixer la largeur maxi du contenu (1170p + 30px de marge = 1200px) */
+  width: 100%;
+  max-width: 1170px;
+  padding: 1.5rem;
+}
+
+.footer-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.footer-links a {
+  color: var(--footer-text-color);
+  /* opacity: 0.6; */
+  text-decoration: none;
+  padding-right: 1.5rem;
+}
+
+/********* Form authentification *********************/
+.form-login {
+  display: flex;
+  flex-flow: column nowrap;
+  font-size: 1.6rem;
+  margin-bottom: 3rem;
+}
+
+.form-login input {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  padding: .5rem 1.5rem;
+}
+
+.form-login input[type=submit] {
+  margin-top: 1rem;
+  padding: .5rem 1.5rem;
+}
+
+
+/********* Images bateaux skippers *********************/
+.main-article .img-bateau,
+.main-article .img-skipper {
+  max-width: 45.5rem;
+}
+
+/****************************************************
+  **     Pour largeur > 768px                        **
+  ****************************************************/
+
+@media screen and (min-width: 768px) {
+
+  /********* effacer le nav-toggle-button ******************/
+  .nav-opener {
+    display: none;
+  }
+
+  /********* afficher le menu à droite du logo ******************/
+  #main-header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    box-shadow: none;
+  }
+
+  #main-nav {
+    /* le menu prend toute la largeur dispo 
+              dans le header (après le logo)*/
+    flex: 1;
+  }
+
+  #nav-opener+label+nav {
+    opacity: 1;
+    visibility: visible;
+    top: auto;
+    transform: translateY(0%);
+    z-index: 1;
+    transition: top 0s ease-in-out .6s, transform .3s ease-in-out 0s, opacity .3s ease-in-out 0s, visibility 0s linear .3s, z-index 0s linear .01s;
+
+  }
+
+  /********* menu normal en ligne ******************/
+  #main-nav-ul {
+    /* retirer la position absolue */
+    position: static;
+    /* disposition des li en ligne */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    /*même couleur de fond que le header */
+    background-color: var(--nav-bg-color);
+    /* positionnement du texte dans le header */
+    padding: 0;
+  }
+
+  #main-nav-ul li a {
+    /* opacity: 0.6; */
+    line-height: 2rem;
+    margin-top: 1.0rem;
+    padding: 1rem 1rem 1rem 1rem;
+    color: var(--nav-text-color);
+  }
+
+  #main-nav-ul li a:hover {
+    /* opacity: 0.6; */
+    color: var(--nav-text-hover-color);
+    background-color: var(--nav-bg-active-color);
+    font-weight: 500;
+  }
+
+  #main-nav-ul li.active a {
+    color: var(--nav-text-active-color);
+    background-color: var(--nav-bg-active-color);
+    font-weight: bold;
+  }
+
+  /********* si le menu toggle est ouvert ******************/
+  #nav-toggle:checked+nav ul {
+    flex-flow: row wrap;
+  }
+
+  /********* Font-size du texte ******************/
+  .main-article {
+    display: flow-root;
+  }
+  .main-article h1 {
+    font-size: 2.8rem;
+  }
+
+  .main-article p:first-of-type {
+    font-size: 1.87rem;
+  }
+
+  .main-article h2 {
+    font-size: 2.5rem;
+  }
+
+  .main-article h3 {
+    font-size: 1.87rem;
+  }
+
+  .main-article p {
+    font-size: 1.6rem;
+  }
+
+  /********* Image article *********************/
+  .main-article img {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    border: 1px solid var(--header-bg-color);
+    margin: 0 2.5rem 2.5rem 0;
+    display: flow-root;
+    /* float: left; */
+  }
+
+  /********* Images bateaux skippers *********************/
+  .main-article .img-bateau,
+  .main-article .img-skipper {
+    max-width: 45.5rem;
+  }
+
+  /********* Form authentification *********************/
+  .form-login {
+    display: grid;
+    grid-template-columns: 12rem minmax(25rem, 55rem);
+    grid-row-gap: 1rem;
+    grid-column-gap: 2rem;
+    align-content: center;
+  }
+}
+
+
+
+/****************************************************
+  **     Pour largeur > 992px                        **
+  ****************************************************/
+@media screen and (min-width: 992px) {
+
+  /********* Font-size du texte ******************/
+  .main-article h1 {
+    font-size: 3rem;
+  }
+
+  .main-article h2 {
+    font-size: 2.7rem;
+  }
+
+  .main-article p {
+    font-size: 1.6rem;
+  }
+}
+
+/****************************************************
+  **     Pour largeur > 1200px                       **
+  ****************************************************/
+@media screen and (min-width: 1200px) {
+
+  /********* Font-size du texte ******************/
+  .main-article h1 {
+    font-size: 2.8rem;
+  }
+
+  .main-article h2 {
+    font-size: 2.7rem;
+  }
+
+  .main-article p {
+    font-size: 1.6rem;
+  }
+}

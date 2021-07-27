@@ -1,0 +1,74 @@
+/****************************************************
+**     Pour largeur < 768px                        **
+****************************************************/
+
+/*********** Fixer le style global ******************/
+
+/*********** Grille globale ******************/
+
+/*********** Header ******************/
+
+/*********** Logo ******************/
+
+/*********** NAV Toggle button ******************/
+/* Toggle button HTML/CSS */
+.nav-toggle-button {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 3.2rem;
+  width: 4.2rem;
+  margin: 1rem 0rem 0.8rem 0;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  line-height: 2rem;
+}
+
+.nav-toggle-button > span {
+  background-color: white;
+  display: block;
+  width: 2.2rem;
+  height: 0.2rem;
+  padding: 0;
+  border-radius: 0.1rem;
+}
+
+#nav-toggle,
+.nav-toogle-text {
+  display: none;
+}
+
+#nav-toggle:checked + nav ul {
+  /* Gestion de l'affichage du menu de navigation*/
+}
+
+/*********** Menu principal <768px ******************/
+
+/*********** Article principal ******************/
+
+/*********** gallery-items ******************/
+
+/*********** Footer ******************/
+
+/****************************************************
+**     Pour largeur > 768px                        **
+****************************************************/
+
+/********* menu normal en ligne ******************/
+
+/********* si le menu toggle est ouvert ******************/
+
+/********* Font-size du texte ******************/
+
+/****************************************************
+**     Pour largeur > 992px                        **
+****************************************************/
+
+/********* Font-size du texte ******************/
+
+/****************************************************
+**     Pour largeur > 1200px                       **
+****************************************************/
+
+/********* Font-size du texte ******************/
